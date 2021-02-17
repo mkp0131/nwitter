@@ -8,9 +8,7 @@ import {
 import Home from "Routes/Home";
 import Auth from "Routes/Auth";
 
-const Fn = () => {
-
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+const Fn = ({isLoggedIn}) => {
 
   return (
     <Router>
