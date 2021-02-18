@@ -3,27 +3,29 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+	Redirect
 } from "react-router-dom";
 import Home from "Routes/Home";
 import Auth from "Routes/Auth";
+import Profile from 'Routes/Profile';
+import Navigation from 'Components/Navigation';
 
 const Fn = ({isLoggedIn}) => {
 
   return (
     <Router>
+			{isLoggedIn && <Navigation />}
       <Switch>
         {isLoggedIn ? (
-          <>
+					<>
             <Route exact path="/" component={Home} />
-            {/* <Route exact path="/editProfile" component={Home} />
-            <Route exact path="/" component={Home} /> */}
-          </>
+						<Route exact path="/profile" component={Profile} />
+						<Redirect from="*" to="/" />
+					</>
         ) : (
           <Route exact path="/" component={Auth} />
         )}
-        
-        
       </Switch>
     </Router>
   )
