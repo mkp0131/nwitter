@@ -18,6 +18,8 @@ function Profile() {
       <button onClick={onLogOutClick}>logout</button>
     </>
   );
+
+
 }
 
 export default Profile;

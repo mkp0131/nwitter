@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+	Redirect
 } from "react-router-dom";
 import Home from "Routes/Home";
 import Auth from "Routes/Auth";
@@ -17,15 +18,13 @@ const Fn = ({isLoggedIn}) => {
       {isLoggedIn && <Navigation />}
       <Switch>
         {isLoggedIn ? (
-          <>
+					<>
             <Route exact path="/" component={Home} />
             <Route exact path="/profile" component={Profile} />
           </>
         ) : (
           <Route exact path="/" component={Auth} />
         )}
-        
-        
       </Switch>
     </Router>
   )

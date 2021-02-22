@@ -33,7 +33,6 @@ const Auth = ()  => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-
 		try {
 			if(newAccount) {
 				await authService.createUserWithEmailAndPassword(email, password);
@@ -45,7 +44,6 @@ const Auth = ()  => {
 			console.log('Auth error: ', error);
       setError(error.message);
 		}
-
 	}
 	
   const toggleAccout = () => setNewAccount(prev => !prev);
@@ -62,8 +60,11 @@ const Auth = ()  => {
         <button onClick={toggleAccout}>{newAccount ? '로그인' : '회원가입'}</button>
       </div>
 			<div>
-				<button>Google</button>
-				<button>Github</button>
+				<button onClick={toggleAccount}>{newAccount ? 'Login' : 'Join'}</button>
+			</div>
+			<div>
+				<button onClick={socialLogin} name="google">Google</button>
+				<button onClick={socialLogin} name="gh">Github</button>
 			</div>
 		</>
   );
