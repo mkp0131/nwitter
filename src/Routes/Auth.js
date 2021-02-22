@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { authService } from "fbase";
+import { firebaseInstance, authService } from "fbase";
 
 
 const useInput = () => {
@@ -46,7 +46,26 @@ const Auth = ()  => {
 		}
 	}
 	
-  const toggleAccout = () => setNewAccount(prev => !prev);
+	const toggleAccount = () => {
+		setNewAccount(prev => !prev);
+	}
+
+	const socialLogin = async (e) => {
+		const {target: {name}} = e;
+		let provider;
+		try {
+			if(name === 'google') {
+				provider = new firebaseInstance.auth.GoogleAuthProvider();
+				firebaseInstance.auth().languageCode = 'ko';
+			}
+			else if (name === 'gh') {
+				provider = new firebaseInstance.auth.GithubAuthProvider();
+			}
+		} catch (error) {
+			console.log(error);
+		}
+		const data = await firebaseInstance.auth().signInWithPopup(provider);
+	}
 
   return (
 		<>
@@ -54,11 +73,8 @@ const Auth = ()  => {
 				<input onChange={setValue} value={email} type="text" name="email" required placeholder="Email" />
 				<input onChange={setValue} value={password} type="password" name="password" required placeholder="Password" />
 				<input type="submit" value={newAccount ? 'Create Account' : 'Login'} />
-        {error}
+				{error}
 			</form>
-      <div>
-        <button onClick={toggleAccout}>{newAccount ? '로그인' : '회원가입'}</button>
-      </div>
 			<div>
 				<button onClick={toggleAccount}>{newAccount ? 'Login' : 'Join'}</button>
 			</div>
