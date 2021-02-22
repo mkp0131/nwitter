@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { authService } from "fbase";
-console.log('authService', authService);
+
 
 const useInput = () => {
 	const [email, setEmail] = useState(''); 
@@ -28,7 +28,8 @@ const useInput = () => {
 const Auth = ()  => {
 
 	const [email, password, setValue] = useInput();
-	const [newAccount, setNewAccount] = useState('');
+	const [newAccount, setNewAccount] = useState(true);
+  const [error, setError] = useState('');
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
@@ -42,17 +43,24 @@ const Auth = ()  => {
 			}
 		} catch (error) {
 			console.log('Auth error: ', error);
+      setError(error.message);
 		}
 
 	}
 	
+  const toggleAccout = () => setNewAccount(prev => !prev);
+
   return (
 		<>
 			<form onSubmit={onSubmit}>
 				<input onChange={setValue} value={email} type="text" name="email" required placeholder="Email" />
 				<input onChange={setValue} value={password} type="password" name="password" required placeholder="Password" />
 				<input type="submit" value={newAccount ? 'Create Account' : 'Login'} />
+        {error}
 			</form>
+      <div>
+        <button onClick={toggleAccout}>{newAccount ? '로그인' : '회원가입'}</button>
+      </div>
 			<div>
 				<button>Google</button>
 				<button>Github</button>
