@@ -5,8 +5,6 @@ import { authService } from "fbase";
 const App = () => {
   const [init, setInit]  = useState(false);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log(authService.currentUser)
-  console.log('isLoggedIn', isLoggedIn);
   useEffect(() => {
       authService.onAuthStateChanged((user) => {
         if(user) {
