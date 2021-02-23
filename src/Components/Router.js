@@ -11,7 +11,7 @@ import Auth from "Routes/Auth";
 import Profile from "Routes/Profile";
 import Navigation from 'Components/Navigaion';
 
-const Fn = ({isLoggedIn}) => {
+const Fn = ({isLoggedIn, userObj}) => {
 
   return (
     <Router>
@@ -19,7 +19,7 @@ const Fn = ({isLoggedIn}) => {
       <Switch>
         {isLoggedIn ? (
 					<>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" render={ () => <Home userObj={userObj} />} />
             <Route exact path="/profile" component={Profile} />
           </>
         ) : (
