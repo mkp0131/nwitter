@@ -20,19 +20,15 @@ const Home = ({userObj}) => {
     setNweet('');
   }
 
-	const getNweets = async () => {
-		const dbNweets = await dbService.collection("nweets").get();
-		dbNweets.forEach(item => {
-			const nweetObj = {
-				...item.data(),
-				id: item.id,
-			}
-			setNweets(prev => [nweetObj, ...prev]);
-		});
-	}
 
 	useEffect(() => {
-		getNweets();
+    dbService.collection('nweets').onSnapshot(snapshot => {
+      const nweetArr = snapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setNweets(nweetArr)
+    })
 	}, [])
 
   return (
