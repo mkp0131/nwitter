@@ -9,7 +9,7 @@ import {
 import Home from "Routes/Home";
 import Auth from "Routes/Auth";
 import Profile from "Routes/Profile";
-import Navigation from 'Components/Navigaion';
+import Navigation from 'Components/Navigation';
 
 const Fn = ({isLoggedIn, userObj}) => {
 
